@@ -15,10 +15,10 @@ public class Artist extends App_User{
 
     public Artist(int user_id, String first_name, String last_name,
                   String email, String username, String profile_pic,
-                  Date register_date, String phone_number, int artist_id,
+                  Date register_date, String phone_number,Boolean deleted ,int artist_id,
                   String description, int monthly_listeners, Boolean verified,
                   String label, ArrayList<Track> tracks) {
-        super(user_id, first_name, last_name, email, username, profile_pic, register_date, phone_number);
+        super(user_id, first_name, last_name, email, username, profile_pic, register_date, phone_number, deleted);
         this.artist_id = artist_id;
         this.description = description;
         this.monthly_listeners = monthly_listeners;
@@ -73,7 +73,7 @@ public class Artist extends App_User{
     @Override
     public String toString(){
         Character verif = (verified) ? '\u2713' : '\u0068';
-        return username + " " + verif + '\n' +
+        return username + " (" + artist_id + ") " + + verif + '\n' +
                 "----------------\n" +
                 "Description:\n\t" + description + '\n' +
                 "Label: " + label;

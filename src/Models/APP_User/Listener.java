@@ -8,9 +8,9 @@ public class Listener extends App_User{
 
     public Listener(int user_id, String first_name, String last_name,
                     String email, String username, String profile_pic,
-                    Date register_date, String phone_number,
+                    Date register_date, String phone_number, Boolean deleted,
                     int listener, int time_played) {
-        super(user_id, first_name, last_name, email, username, profile_pic, register_date, phone_number);
+        super(user_id, first_name, last_name, email, username, profile_pic, register_date, phone_number, deleted);
         this.listener = listener;
         this.time_played = time_played;
     }

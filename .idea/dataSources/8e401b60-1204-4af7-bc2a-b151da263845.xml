@@ -3,7 +3,6 @@
   <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
     <root id="1">
       <ServerVersion>21.0.0.0.0</ServerVersion>
-      <TablespacesHash>23420661385</TablespacesHash>
     </root>
     <schema id="2" parent="1" name="ANONYMOUS">
       <ObjectId>72</ObjectId>
@@ -374,7 +373,7 @@
     </table>
     <table id="97" parent="21" name="APP_USER">
       <CreatedTimestamp>2024-04-06.23:08:48</CreatedTimestamp>
-      <DetailsLevel>3</DetailsLevel>
+      <DetailsLevel>2</DetailsLevel>
       <ModifiedTimestamp>2024-04-07.01:11:54</ModifiedTimestamp>
       <ObjectId>80635</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>

@@ -1,7 +1,7 @@
 package Models.APP_User;
 
 import java.sql.Date;
-public class App_User {
+public abstract class App_User {
     protected int user_id;
     protected String first_name;
     protected String last_name;
@@ -10,10 +10,11 @@ public class App_User {
     protected String profile_pic;
     protected Date register_date;
     protected String phone_number;
+    protected Boolean deleted;
 
     public App_User(int user_id, String first_name, String last_name, String email,
                     String username, String profile_pic, Date register_date,
-                    String phone_number) {
+                    String phone_number, Boolean deleted) {
         this.user_id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -22,8 +23,10 @@ public class App_User {
         this.profile_pic = profile_pic;
         this.register_date = register_date;
         this.phone_number = phone_number;
+        this.deleted = deleted;
     }
 
+    public int getUser_id() { return this.user_id; }
     public String getFirst_name() {
         return first_name;
     }
@@ -51,7 +54,10 @@ public class App_User {
     public String getPhone_number() {
         return phone_number;
     }
+    public Boolean getDeleted(){return deleted;}
 
+    public void setUser_id(int user_id){ this.user_id = user_id; }
+    public void setDeleted(Boolean deleted){ this.deleted = deleted;}
     public void setFirst_name(String first_name) {
         this.first_name = first_name;
     }
