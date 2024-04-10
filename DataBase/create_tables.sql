@@ -131,7 +131,7 @@ alter table ALBUM
 
 alter table EPISODE
     add constraint fk_podcast_id_episode FOREIGN KEY(podcast_id)
-        references PODCAST(podcast_id);
+        references PODCAST(podcast_id) ON DELETE CASCADE;
         
 alter table LISTENER_FOLLOW_PODCAST
     add (constraint pk_list_fl_pod PRIMARY KEY(listener_id, podcast_id),
@@ -141,7 +141,7 @@ alter table LISTENER_FOLLOW_PODCAST
          
 alter table SONG
     add constraint fk_album_id_song FOREIGN KEY(album_id)
-        references ALBUM(album_id);
+        references ALBUM(album_id) ON DELETE CASCADE;
         
 alter table LISTENER_SAVES_ALBUM
     add (constraint pk_lis_saves_alb PRIMARY KEY(listener_id, album_id),

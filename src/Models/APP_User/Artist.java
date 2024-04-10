@@ -77,6 +77,5 @@ public class Artist extends App_User{
                 "----------------\n" +
                 "Description:\n\t" + description + '\n' +
                 "Label: " + label;
-
     }
 }

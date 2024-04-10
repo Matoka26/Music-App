@@ -13,10 +13,11 @@ public class Album extends Track{
 
     public Album(int track_id, Artist artist, String name,
                  String picture, Date release_date, int album_id,
-                 String genre) {
+                 String genre,ArrayList<Song> songs) {
         super(track_id, artist, name, picture, release_date);
         this.album_id = album_id;
         this.genre = genre;
+        this.songs = songs;
     }
 
     public int getAlbum_id() {
@@ -33,6 +34,14 @@ public class Album extends Track{
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(ArrayList<Song> songs) {
+        this.songs = songs;
     }
 
     public String toString(){

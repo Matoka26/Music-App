@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6e721f6-ccad-4c13-baf2-bed4a5e2b670" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8e401b60-1204-4af7-bc2a-b151da263845.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8e401b60-1204-4af7-bc2a-b151da263845.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DataBase/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DataBase/create_tables.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Models/APP_User/App_User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/APP_User/App_User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/APP_User/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/APP_User/Artist.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Models/APP_User/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/APP_User/Listener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Persistence/Repositories/App_UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Models/Track/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Models/Track/Album.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Persistence/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistence/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Persistence/Repositories/ArtistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Persistence/Repositories/ArtistRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,11 +90,28 @@
       <workItem from="1712580975587" duration="11653000" />
       <workItem from="1712646387542" duration="1868000" />
       <workItem from="1712670840809" duration="638000" />
-      <workItem from="1712684808186" duration="17938000" />
+      <workItem from="1712684808186" duration="18375000" />
+      <workItem from="1712726420828" duration="2215000" />
+      <workItem from="1712732922969" duration="13022000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Persistence/Repositories/PodcastRepository.java</url>
+          <line>105</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

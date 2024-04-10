@@ -1,6 +1,7 @@
 package Persistence.Repositories;
 
 import Models.APP_User.Artist;
+import Models.APP_User.Listener;
 import Persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -9,73 +10,68 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ArtistRepository implements GenericRepository<Artist> {
-    private static ArtistRepository instance = null;
-    private ArtistRepository() {}
-
-    public static ArtistRepository getInstance() {
-        if (instance == null) {
-            instance = new ArtistRepository();
+public class ListenerRepository implements GenericRepository<Listener> {
+    private static  ListenerRepository instance = null;
+    private ListenerRepository(){}
+    public static ListenerRepository getInstance(){
+        if(instance == null){
+            instance = new ListenerRepository();
         }
         return instance;
     }
 
     @Override
-    public void add(Artist artist) {
+    public void add(Listener listener) {
         String insertUser = "INSERT INTO app_user VALUES (user_index.nextval, ?, ?, ?, ?, ?, ?, ?, 0)";
 
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
                     dbConnection.getContext().prepareStatement(insertUser);
 
-            preparedStatement.setString(1, artist.getFirst_name());
-            preparedStatement.setString(2, artist.getLast_name());
-            preparedStatement.setString(3, artist.getEmail());
-            preparedStatement.setString(4, artist.getUsername());
-            preparedStatement.setString(5, artist.getProfile_pic());
-            preparedStatement.setString(6, artist.getPhone_number());
-            preparedStatement.setDate(7, artist.getRegister_date());
+            preparedStatement.setString(1, listener.getFirst_name());
+            preparedStatement.setString(2, listener.getLast_name());
+            preparedStatement.setString(3, listener.getEmail());
+            preparedStatement.setString(4, listener.getUsername());
+            preparedStatement.setString(5, listener.getProfile_pic());
+            preparedStatement.setString(6, listener.getPhone_number());
+            preparedStatement.setDate(7, listener.getRegister_date());
 
             preparedStatement.executeUpdate();
 
-            artist.setUser_id(retrievLastId("USER_INDEX"));
+            listener.setUser_id(retrievLastId("USER_INDEX") -1);
 
         }catch (SQLException ex){
 
             throw new RuntimeException(ex);
         }
         String insertArt = """
-                INSERT INTO artist VALUES(artist_index.nextval, ?, ?, ?, ?, ?)
+                INSERT INTO listener VALUES(listener_index.nextval, ?, 0)
                  """;
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
                     dbConnection.getContext().prepareStatement(insertArt);
 
-            preparedStatement.setInt(1, artist.getUser_id());
-            preparedStatement.setString(2, artist.getDescription());
-            preparedStatement.setInt(3, artist.getMonthly_listeners());
-            preparedStatement.setInt(4, artist.getVerified() ? 1 : 0);
-            preparedStatement.setString(5, artist.getLabel());
+            preparedStatement.setInt(1, listener.getUser_id());
 
             preparedStatement.executeUpdate();
 
-            artist.setArtist_id(retrievLastId("ARTIST_INDEX"));
+            listener.setListener(retrievLastId("LISTENER_INDEX") -1);
         }catch (SQLException ex){
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public Artist get(int id){
+    public Listener get(int id) {
         String selectQuery = """
                 
                 SELECT us.user_id, us.first_name,us.last_name, us.email,
                     us.username, us.profile_pic, us.register_date, 
-                    us.phone_number,us.deleted,  a.artist_id, a.description,
-                    a.monthly_listeners, a.verified, a.lable
+                    us.phone_number,us.deleted,  a.listener_id,
+                    a.time_played
                                 
-                    FROM app_user us, artist a WHERE a.user_id = us.user_id
-                    AND a.artist_id = ?
+                    FROM app_user us, listener a WHERE a.user_id = us.user_id
+                    AND a.listener_id = ?
                 """;
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
@@ -85,7 +81,7 @@ public class ArtistRepository implements GenericRepository<Artist> {
             ResultSet res = preparedStatement.executeQuery();
 
             if(res.next()){
-                Artist artist = new Artist(
+                return new Listener(
                         res.getInt(1),
                         res.getString(2),
                         res.getString(3),
@@ -96,13 +92,8 @@ public class ArtistRepository implements GenericRepository<Artist> {
                         res.getString(8),
                         res.getBoolean(9),
                         res.getInt(10),
-                        res.getString(11),
-                        res.getInt(12),
-                        res.getBoolean(13),
-                        res.getString(14),
-                        new ArrayList<>()
+                        res.getInt(11)
                 );
-                return artist;
             }else{
                 throw new RuntimeException();
             }
@@ -112,24 +103,25 @@ public class ArtistRepository implements GenericRepository<Artist> {
     }
 
     @Override
-    public ArrayList<Artist> getAll(){
+    public ArrayList<Listener> getAll() {
         String selectQuery = """
-                    SELECT us.user_id, us.first_name,us.last_name, us.email,
-                    us.username, us.profile_pic, us.register_date,
-                    us.phone_number, a.artist_id, a.description,
-                    a.monthly_listeners, a.verified, a.lable
+                
+                SELECT us.user_id, us.first_name,us.last_name, us.email,
+                    us.username, us.profile_pic, us.register_date, 
+                    us.phone_number,us.deleted,  a.listener_id,
+                    a.time_played
                                 
-                    FROM app_user us, artist a WHERE a.user_id = us.user_id
+                    FROM app_user us, listener a WHERE a.user_id = us.user_id
                 """;
         try {
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
                     dbConnection.getContext().prepareStatement(selectQuery);
             ResultSet res = preparedStatement.executeQuery();
 
-            ArrayList<Artist> artists = new ArrayList<>();
+            ArrayList<Listener> listeners = new ArrayList<>();
 
             while(res.next()){
-                Artist artist = new Artist(
+                Listener listener = new Listener(
                         res.getInt(1),
                         res.getString(2),
                         res.getString(3),
@@ -140,15 +132,12 @@ public class ArtistRepository implements GenericRepository<Artist> {
                         res.getString(8),
                         res.getBoolean(9),
                         res.getInt(10),
-                        res.getString(11),
-                        res.getInt(12),
-                        res.getBoolean(13),
-                        res.getString(14),
-                        new ArrayList<>()
+                        res.getInt(11)
                 );
-                artists.add(artist);
+
+                listeners.add(listener);
             }
-            return artists;
+            return listeners;
 
         }catch (SQLException ex){
             throw new RuntimeException(ex);
@@ -156,26 +145,21 @@ public class ArtistRepository implements GenericRepository<Artist> {
     }
 
     @Override
-    public void update(Artist obj){
-        String updateStatementArt = """
-                    UPDATE artist
+    public void update(Listener obj) {
+        String updateStatementLis = """
+                    UPDATE listener
                     SET
-                        description = ?,
-                        monthly_listeners = ?,
-                        verified = ?,
-                        lable = ?
+                        time_played = ?
                     WHERE
-                        artist_id = ?
+                        listener_id = ?
                 """;
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
-                    dbConnection.getContext().prepareStatement(updateStatementArt);
+                    dbConnection.getContext().prepareStatement(updateStatementLis);
 
-            preparedStatement.setString(1, obj.getDescription());
-            preparedStatement.setInt(2, obj.getMonthly_listeners());
-            preparedStatement.setInt(3, (obj.getVerified()) ? 1 : 0);
-            preparedStatement.setString(4, obj.getLabel());
-            preparedStatement.setInt(5, obj.getArtist_id());
+            preparedStatement.setInt(1, obj.getTime_played());
+            preparedStatement.setInt(2, obj.getListener_id());
+
 
             preparedStatement.executeUpdate();
 
@@ -218,16 +202,16 @@ public class ArtistRepository implements GenericRepository<Artist> {
     }
 
     @Override
-    public void delete(Artist obj){
-        String deleteStatementArt = """
-                DELETE FROM artist
-                WHERE artist_id = ?
+    public void delete(Listener obj) {
+        String deleteStatementLis = """
+                DELETE FROM listener
+                WHERE listener_id = ?
                 """;
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
-                    dbConnection.getContext().prepareStatement(deleteStatementArt);
+                    dbConnection.getContext().prepareStatement(deleteStatementLis);
 
-            preparedStatement.setInt(1, obj.getArtist_id());
+            preparedStatement.setInt(1, obj.getListener_id());
 
             preparedStatement.executeUpdate();
         }catch (SQLException ex){
@@ -249,4 +233,5 @@ public class ArtistRepository implements GenericRepository<Artist> {
             throw new RuntimeException(ex);
         }
     }
+
 }
