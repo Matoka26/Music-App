@@ -14,6 +14,8 @@ public class ListenerConsoleApp {
     private SongRepository songRepo;
     private EpisodeRepository episodeRepo;
 
+    private static int user_id;
+    private static int listener_id;
 
     private ListenerConsoleApp() {
         artistRepo = ArtistRepository.getInstance();
@@ -40,6 +42,8 @@ public class ListenerConsoleApp {
     }
 
     public void startMenu(int user_id, int listener_id){
+        this.user_id = user_id;
+        this.listener_id = listener_id;
 
     }
 }

@@ -40,7 +40,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
 
             preparedStatement.executeUpdate();
 
-            listener.setUser_id(retrievLastId("USER_INDEX") -1);
+            listener.setUser_id(retrievLastId("USER_INDEX"));
 
         }catch (SQLException ex){
 
@@ -57,7 +57,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
 
             preparedStatement.executeUpdate();
 
-            listener.setListener(retrievLastId("LISTENER_INDEX") -1);
+            listener.setListener(retrievLastId("LISTENER_INDEX"));
         }catch (SQLException ex){
             throw new RuntimeException(ex);
         }

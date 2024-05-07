@@ -111,4 +111,49 @@ public class Artist extends App_User{
                         profile_pic, register_date, phone_number, false,0,
                         description, 0, false, label, new ArrayList<>());
     }
+
+    public void updateArtist(){
+        Scanner scanner = new Scanner(System.in);
+        String input;
+
+        System.out.println("Update email? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setEmail(input);
+
+        System.out.println("Update username? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setUsername(input);
+
+        System.out.println("Update password? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setPassword(input);
+
+        System.out.println("Update profile pic? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setProfile_pic(input);
+
+        System.out.println("Update phone number? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setPhone_number(input);
+
+        System.out.println("Update description? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setDescription(input);
+
+        System.out.println("Update label? ");
+        input = scanner.nextLine();
+        if(input != "")
+            this.setLabel(input);
+
+    }
+
+    public void deleteArtist(){
+        this.deleted = true;
+    }
 }

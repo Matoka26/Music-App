@@ -3,6 +3,7 @@ package view;
 import persistence.repositories.ArtistRepository;
 import persistence.repositories.ListenerRepository;
 
+import javax.security.auth.login.LoginContext;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -60,13 +61,13 @@ public class ConsoleApp {
         switch (option){
             case 1 -> {
                 artistApp.createArtist();
-                // get the guys id's and start
-                artistApp.startMenu();
+                System.out.println("Account created successfully\n");
+                login();
             }
             case 2 -> {
                 listenerApp.createListener();
-                // get the guys id's and start
-                listenerApp.startMenu();
+                System.out.println("Account created successfully\n");
+                login();
             }
             case 3 -> startMenu();
             case 4 -> {}
@@ -81,6 +82,7 @@ public class ConsoleApp {
         Scanner scanner = new Scanner(System.in);
         String username, password;
 
+        System.out.println("***FANCY LOGIN SCREEN***");
         System.out.println("Username: ");
         username = scanner.nextLine().trim();
         System.out.println("Password: ");
@@ -90,7 +92,8 @@ public class ConsoleApp {
 
         ids = artistApp.validateLogin(username, password);
         if(ids != null) {
-            artistApp.startMenu(ids.getKey(), ids.getValue());
+            artistApp.setArtist_id(ids.getValue());
+            artistApp.startMenu();
             return;
         }
 

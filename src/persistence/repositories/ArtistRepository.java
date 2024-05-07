@@ -1,6 +1,7 @@
 package persistence.repositories;
 
 import models.app_user.Artist;
+import models.track.Track;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -258,7 +259,6 @@ public class ArtistRepository implements GenericRepository<Artist> {
         }
     }
 
-
     public Map.Entry<Integer, Integer> validateLogin(String username, String password) {
         /* returns the Map.Entry containing user_id and artist_id or null if none */
 
@@ -285,6 +285,39 @@ public class ArtistRepository implements GenericRepository<Artist> {
             } else {
                 return null; // No matching user found
             }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Track> getAllArtistTracks(Artist artist){
+        String selectQuery = """
+                    SELECT track_id, name, picture, release_date
+                    FROM track
+                    WHERE artist_id = ?
+                """;
+        try {
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+            preparedStatement.setInt(1, artist.getArtist_id());
+
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Track> tracks = new ArrayList<>();
+
+
+            while (res.next()) {
+                Track track = new Track(
+                        res.getInt(1),
+                        artist,
+                        res.getString(2),
+                        res.getString(3),
+                        res.getDate(4)
+                );
+                tracks.add(track);
+            }
+            return tracks;
+
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

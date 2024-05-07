@@ -4,7 +4,7 @@ import models.app_user.Artist;
 
 import java.sql.Date;
 
-public abstract class Track {
+public class Track {
     private int track_id;
     private Artist artist;
     private String name;
@@ -64,6 +64,7 @@ public abstract class Track {
         return picture + '\n' +
                 name + '\n' +
                 "By " + artist.getUsername() + '\n' +
-                release_date + '\n';
+                release_date + '\n' +
+                "ID" + track_id + '\n';
     }
 }
