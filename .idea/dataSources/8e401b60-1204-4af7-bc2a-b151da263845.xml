@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost">
-  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.51">
-    <root id="1">
-      <ServerVersion>21.0.0.0.0</ServerVersion>
-    </root>
+  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.52">
+    <root id="1"/>
     <schema id="2" parent="1" name="ANONYMOUS">
       <ObjectId>72</ObjectId>
     </schema>
