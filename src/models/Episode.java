@@ -2,24 +2,24 @@ package models;
 
 import models.track.Podcast;
 
-public class Episode {
+import java.util.Scanner;
+
+public class Episode implements Comparable<Episode> {
     private int episode_id;
     private Podcast podcast;
     private String title;
     private String host;
     private String guest;
     private int duration;
-    private int likes;
     private int plays;
 
-    public Episode(int episode_id, Podcast podcast, String title, String host, String guest, int duration, int likes, int plays) {
+    public Episode(int episode_id, Podcast podcast, String title, String host, String guest, int duration, int plays) {
         this.episode_id = episode_id;
         this.podcast = podcast;
         this.title = title;
         this.host = host;
         this.guest = guest;
         this.duration = duration;
-        this.likes = likes;
         this.plays = plays;
     }
 
@@ -71,14 +71,6 @@ public class Episode {
         this.duration = duration;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
     public int getPlays() {
         return plays;
     }
@@ -94,7 +86,31 @@ public class Episode {
                 "Host: " + host + '\n' +
                 gue +
                 "Duration: " + duration + '\n' +
-                '\u2764' + likes + '\n' +
                  '\u25B6' + plays + '\n';
+    }
+
+    @Override
+    public int compareTo(Episode o) {
+        return Integer.compare(this.plays, o.getPlays());
+    }
+
+    public static Episode createEpidose(Podcast podcast){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Episode title: ");
+        String title = scanner.nextLine();
+
+        System.out.println("Episode host: ");
+        String host = scanner.nextLine();
+
+        System.out.println("Episode guest: ");
+        String guest = scanner.nextLine();
+
+        System.out.println("Episode duration: ");
+        int duration = scanner.nextInt();
+        return new Episode(0, podcast,title, host, guest, duration, 0);
+    }
+
+    public void onePlay(){
+        this.plays += 1;
     }
 }

@@ -62,4 +62,7 @@ public class Listener extends App_User{
         return new Listener(0, first_name, last_name, email, username,
                             password, profile_pic, register_date, phone_number, false, 0, 0);
     }
+    public void addDuration(int duration){
+        this.time_played += duration;
+    }
 }

@@ -1,5 +1,6 @@
 package persistence.repositories;
 
+import models.Song;
 import models.track.Album;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
@@ -37,7 +38,7 @@ public class AlbumRepository implements GenericRepository<Album> {
 
             preparedStatement.executeUpdate();
 
-            obj.setAlbum_id(retrievLastId("TRACK_INDEX"));
+            obj.setTrack_id(retrievLastId("TRACK_INDEX"));
 
         }catch (SQLException ex){
             throw new RuntimeException(ex);
@@ -211,4 +212,37 @@ public class AlbumRepository implements GenericRepository<Album> {
             throw new RuntimeException(ex);
         }
     }
+
+    public Album getByTrackId(int track_id) {
+        String selectQuery = """
+                SELECT tr.track_id,tr.artist_id, tr.name, tr.picture, tr.release_date,
+                        a.album_id, a.genre
+                FROM album a,track tr
+                WHERE tr.track_id = ? and a.track_id = tr.track_id
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setInt(1, track_id);
+            ResultSet res = preparedStatement.executeQuery();
+
+            if(res.next()){
+                return new Album(
+                        res.getInt(1),
+                        artistRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getDate(5),
+                        res.getInt(6),
+                        res.getString(7),
+                        new ArrayList<>()
+                );
+            }
+            return null;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

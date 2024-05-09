@@ -6,8 +6,6 @@ DROP TABLE listener_likes_song;
 
 DROP TABLE listener_saves_album;
 
-DROP TABLE artist_feat_song;
-
 DROP TABLE song;
 
 DROP TABLE album;

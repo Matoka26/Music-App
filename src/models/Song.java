@@ -2,22 +2,22 @@ package models;
 
 import models.track.Album;
 
-public class Song {
+import java.util.Scanner;
+
+public class Song implements Comparable<Song>{
     private int song_id;
     private Album album;
     private String title;
     private int duration;
     private int plays;
-    private int likes;
 
     public Song(int song_id, Album album, String title,
-                int duration, int plays, int likes) {
+                int duration, int plays) {
         this.song_id = song_id;
         this.album = album;
         this.title = title;
         this.duration = duration;
         this.plays = plays;
-        this.likes = likes;
     }
 
     public int getSong_id() {
@@ -60,21 +60,35 @@ public class Song {
         this.plays = plays;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
+    @Override
     public String toString(){
         return album.getPicture() + '\n' +
                 title + '\n' +
                 album.getArtist().getUsername() + '\n' +
                 // for feat
                 "Duration: " + duration + '\n' +
-                '\u2764' + likes + '\n' +
-                '\u25B6' + plays + '\n';
+                '\u25B6' + plays + '\n' +
+                "ID " + song_id + '\n';
+    }
+
+    @Override
+    public int compareTo(Song o) {
+        return Integer.compare(this.plays, o.plays);
+    }
+
+    public static Song createSong(Album album){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Song title: ");
+        String title = sc.nextLine();
+
+        System.out.println("Song duration: ");
+        int duration = sc.nextInt();
+        sc.nextLine();
+
+        return new Song(0, album, title, duration, 0);
+    }
+
+    public void onePlay(){
+        this.plays += 1;
     }
 }

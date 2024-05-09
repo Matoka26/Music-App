@@ -5,6 +5,8 @@ import models.Episode;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Scanner;
 
 public class Podcast extends Track{
     private int podcast_id;
@@ -58,5 +60,21 @@ public class Podcast extends Track{
         return super.toString() +
                 "Topic: " + topic + '\n' +
                 "Description:\n\t " + description + '\n';
+    }
+
+    public static Podcast createPodcast(Artist artist){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Podcast name: ");
+        String name = sc.nextLine();
+
+        System.out.println("Podcast picture: ");
+        String picture = sc.nextLine();
+
+        System.out.println("Podcast topic: ");
+        String topic = sc.nextLine();
+
+        System.out.println("Podcast description: ");
+        String description = sc.nextLine();
+        return new Podcast(0, artist, name, picture, new Date(Calendar.getInstance().getTime().getTime()), 0, topic, description, new ArrayList<>());
     }
 }

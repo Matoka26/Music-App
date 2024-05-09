@@ -266,7 +266,7 @@ public class ArtistRepository implements GenericRepository<Artist> {
                 SELECT us.user_id, ar.artist_id
                 FROM app_user us, artist ar
                 WHERE us.username = ? AND us.password = ?
-                      AND ar.user_id = us.user_id
+                      AND ar.user_id = us.user_id AND us.deleted = 0
              """;
 
         try {
@@ -290,34 +290,47 @@ public class ArtistRepository implements GenericRepository<Artist> {
         }
     }
 
-    public ArrayList<Track> getAllArtistTracks(Artist artist){
+    public Artist getByUsername(String username){
         String selectQuery = """
-                    SELECT track_id, name, picture, release_date
-                    FROM track
-                    WHERE artist_id = ?
+                                
+                SELECT us.user_id, us.first_name,us.last_name, us.email,
+                    us.username,us.password, us.profile_pic, us.register_date, 
+                    us.phone_number,us.deleted,  a.artist_id, a.description,
+                    a.monthly_listeners, a.verified, a.lable
+                                
+                    FROM app_user us, artist a WHERE a.user_id = us.user_id
+                    AND us.username = ?
                 """;
         try {
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
                     dbConnection.getContext().prepareStatement(selectQuery);
-            preparedStatement.setInt(1, artist.getArtist_id());
+            preparedStatement.setString(1, username);
 
             ResultSet res = preparedStatement.executeQuery();
 
-            ArrayList<Track> tracks = new ArrayList<>();
-
-
-            while (res.next()) {
-                Track track = new Track(
+            if (res.next()) {
+                Artist artist = new Artist(
                         res.getInt(1),
-                        artist,
                         res.getString(2),
                         res.getString(3),
-                        res.getDate(4)
+                        res.getString(4),
+                        res.getString(5),
+                        res.getString(6),
+                        res.getString(7),
+                        res.getDate(8),
+                        res.getString(9),
+                        res.getBoolean(10),
+                        res.getInt(11),
+                        res.getString(12),
+                        res.getInt(13),
+                        res.getBoolean(14),
+                        res.getString(15),
+                        new ArrayList<>()
                 );
-                tracks.add(track);
+                return artist;
+            } else {
+                throw new RuntimeException();
             }
-            return tracks;
-
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

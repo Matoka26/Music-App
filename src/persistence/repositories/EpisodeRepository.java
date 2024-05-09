@@ -1,6 +1,7 @@
 package persistence.repositories;
 
 import models.Episode;
+import models.Song;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -25,7 +26,7 @@ public class EpisodeRepository implements GenericRepository<Episode> {
     public void add(Episode obj) {
         String insertStatement = """
                 INSERT INTO episode
-                VALUES(episode_index.nextval,?,?,?,?,?,0,0)
+                VALUES(episode_index.nextval,?,?,?,?,?,0)
                 """;
         try{
             PreparedStatement preparedStatement = (OraclePreparedStatement)
@@ -68,8 +69,7 @@ public class EpisodeRepository implements GenericRepository<Episode> {
                         res.getString(4),
                         res.getString(5),
                         res.getInt(6),
-                        res.getInt(7),
-                        res.getInt(8)
+                        res.getInt(7)
                         );
             }else{
                 throw new RuntimeException();
@@ -102,9 +102,8 @@ public class EpisodeRepository implements GenericRepository<Episode> {
                         res.getString(4),
                         res.getString(5),
                         res.getInt(6),
-                        res.getInt(7),
-                        res.getInt(8)
-                    );
+                        res.getInt(7)
+                );
                     eps.add(ep);
                 }
                 return eps;
@@ -122,7 +121,6 @@ public class EpisodeRepository implements GenericRepository<Episode> {
                     host = ?,
                     guest = ?,
                     duration = ?,
-                    likes = ?,
                     plays = ?
                 WHERE
                     episode_id = ?
@@ -135,9 +133,8 @@ public class EpisodeRepository implements GenericRepository<Episode> {
             preparedStatement.setString(2, obj.getHost());
             preparedStatement.setString(3, obj.getGuest());
             preparedStatement.setInt(4, obj.getDuration());
-            preparedStatement.setInt(5, obj.getLikes());
-            preparedStatement.setInt(6, obj.getPlays());
-            preparedStatement.setInt(7, obj.getEpisode_id());
+            preparedStatement.setInt(5, obj.getPlays());
+            preparedStatement.setInt(6, obj.getEpisode_id());
 
             preparedStatement.executeUpdate();
 
@@ -160,6 +157,38 @@ public class EpisodeRepository implements GenericRepository<Episode> {
 
             preparedStatement.executeUpdate();
 
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Episode> getAllbyPodcastId(int podcastId) {
+        String selectQuery = """
+                select episode_id, podcast_id, title, host, guest, duration, plays
+                from episode
+                where podcast_id = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setInt(1, podcastId);
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Episode> episodes = new ArrayList<>();
+            while(res.next()){
+                Episode ep = new Episode(
+                    res.getInt(1),
+                        podcastRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getString(5),
+                        res.getInt(6),
+                        res.getInt(7)
+                );
+                episodes.add(ep);
+            }
+            return episodes;
         }catch (SQLException ex){
             throw new RuntimeException(ex);
         }

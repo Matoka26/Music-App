@@ -99,7 +99,8 @@ public class ConsoleApp {
 
         ids = listenerApp.validateLogin(username, password);
         if(ids != null) {
-            listenerApp.startMenu(ids.getKey(), ids.getValue());
+            listenerApp.setListener_id(ids.getValue());
+            listenerApp.startMenu();
             return;
         }
 

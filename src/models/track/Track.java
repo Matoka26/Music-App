@@ -65,6 +65,6 @@ public class Track {
                 name + '\n' +
                 "By " + artist.getUsername() + '\n' +
                 release_date + '\n' +
-                "ID" + track_id + '\n';
+                "ID " + track_id + '\n';
     }
 }

@@ -5,6 +5,7 @@ import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
 import java.lang.runtime.SwitchBootstraps;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.AbstractMap;
@@ -247,7 +248,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
                 SELECT us.user_id, ar.listener_id
                 FROM app_user us, listener ar
                 WHERE us.username = ? AND us.password = ?
-                AND ar.user_id = us.user_id
+                     AND ar.user_id = us.user_id AND us.deleted = 0
              """;
 
         try {
@@ -267,6 +268,42 @@ public class ListenerRepository implements GenericRepository<Listener> {
                 return null; // No matching user found
             }
         } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void likeSong(int listener_id, int song_id) {
+        String insertStatement = """
+                INSERT INTO listener_likes_song VALUES(?, ?)
+                """;
+        try{
+            PreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(insertStatement);
+
+            preparedStatement.setInt(1, listener_id);
+            preparedStatement.setInt(2, song_id);
+
+            preparedStatement.executeUpdate();
+
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void unlikeSong(int listener_id, int song_id) {
+        String deleteStatement = """
+                DELETE FROM listener_likes_song
+                WHERE listener_id = ? AND song_id = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(deleteStatement);
+
+            preparedStatement.setInt(1, listener_id);
+            preparedStatement.setInt(2, song_id);
+
+            preparedStatement.executeUpdate();
+        }catch (SQLException ex){
             throw new RuntimeException(ex);
         }
     }

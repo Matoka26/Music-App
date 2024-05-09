@@ -1,6 +1,8 @@
 package persistence.repositories;
 
+import models.Episode;
 import models.Song;
+import models.track.Album;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -25,7 +27,7 @@ public class SongRepository implements GenericRepository<Song> {
     @Override
     public void add(Song obj) {
         String insertStatement = """
-                INSERT INTO SONG VALUES (song_index.nextval, ?, ?, ?, 0, 0) 
+                INSERT INTO SONG VALUES (song_index.nextval, ?, ?, ?, 0) 
                 """;
         try{
             OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
@@ -45,7 +47,7 @@ public class SongRepository implements GenericRepository<Song> {
     public Song get(int id) {
         String selectQuery = """
                 SELECT song_id, album_id, title,
-                        duration, likes, plays
+                        duration, plays
                 FROM song
                 WHERE song_id = ?
                 """;
@@ -62,8 +64,7 @@ public class SongRepository implements GenericRepository<Song> {
                         albumRepo.get(res.getInt(2)),
                         res.getString(3),
                         res.getInt(4),
-                        res.getInt(5),
-                        res.getInt(6)
+                        res.getInt(5)
                 );
             }
             return null;
@@ -76,7 +77,7 @@ public class SongRepository implements GenericRepository<Song> {
     public ArrayList<Song> getAll() {
         String selectQuery = """
                 SELECT song_id, album_id, title,
-                        duration, likes, plays
+                        duration, plays
                 FROM song
                 """;
         try{
@@ -92,8 +93,7 @@ public class SongRepository implements GenericRepository<Song> {
                             albumRepo.get(res.getInt(2)),
                             res.getString(3),
                             res.getInt(4),
-                            res.getInt(5),
-                            res.getInt(6)
+                            res.getInt(5)
                             );
                 songs.add(song);
             }
@@ -110,7 +110,6 @@ public class SongRepository implements GenericRepository<Song> {
                 SET
                    title = ?,
                    duration = ?,
-                   likes = ?,
                    plays = ?
                 WHERE
                     song_id = ?
@@ -121,9 +120,8 @@ public class SongRepository implements GenericRepository<Song> {
 
             preparedStatement.setString(1, obj.getTitle());
             preparedStatement.setInt(2, obj.getDuration());
-            preparedStatement.setInt(3, obj.getLikes());
-            preparedStatement.setInt(4, obj.getPlays());
-            preparedStatement.setInt(5, obj.getSong_id());
+            preparedStatement.setInt(3, obj.getPlays());
+            preparedStatement.setInt(4, obj.getSong_id());
 
             preparedStatement.executeUpdate();
         }catch (SQLException ex){
@@ -145,6 +143,126 @@ public class SongRepository implements GenericRepository<Song> {
 
             preparedStatement.executeUpdate();
 
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Song> getAllByAlbumId(int albumId){
+        String selectQuery = """
+                select song_id, album_id, title, duration, plays
+                from song
+                where album_id = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setInt(1, albumId);
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Song> songs = new ArrayList<>();
+            while(res.next()){
+                Song song = new Song(
+                    res.getInt(1),
+                        albumRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getInt(4),
+                        res.getInt(5)
+                );
+                songs.add(song);
+            }
+            return songs;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Song> getFewRandom(){
+        String selectQuery = """
+                SELECT song_id, album_id, title, duration, plays
+                FROM song
+                ORDER BY dbms_random.value
+                FETCH FIRST 10 ROWS ONLY
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Song> songs = new ArrayList<>();
+            while(res.next()){
+                Song song =  new Song(
+                        res.getInt(1),
+                        albumRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getInt(4),
+                        res.getInt(5)
+                );
+                songs.add(song);
+            }
+            return songs;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Song> getByTitle(String title){
+        String selectQuery = """
+                select song_id, album_id, title, duration, plays
+                from song
+                where lower(title) = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setString(1, title.toLowerCase());
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Song> songs = new ArrayList<>();
+            while(res.next()){
+                Song song = new Song(
+                        res.getInt(1),
+                        albumRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getInt(4),
+                        res.getInt(5)
+                );
+                songs.add(song);
+            }
+            return songs;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Song> getLikes(int listenerId){
+        String selectQuery = """
+                SELECT s.song_id, s.album_id, s.title, s.duration, s.plays
+                FROM listener_likes_song lks, song s
+                WHERE lks.listener_id = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setInt(1, listenerId);
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Song> songs = new ArrayList<>();
+            while(res.next()){
+                Song song =  new Song(
+                        res.getInt(1),
+                        albumRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getInt(4),
+                        res.getInt(5)
+                );
+                songs.add(song);
+            }
+            return songs;
         }catch (SQLException ex){
             throw new RuntimeException(ex);
         }

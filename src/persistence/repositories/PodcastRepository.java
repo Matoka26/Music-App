@@ -1,5 +1,7 @@
 package persistence.repositories;
 
+import models.Song;
+import models.track.Album;
 import models.track.Podcast;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
@@ -38,7 +40,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
 
             preparedStatement.executeUpdate();
 
-            podcast.setPodcast_id(retrievLastId("TRACK_INDEX"));
+            podcast.setTrack_id(retrievLastId("TRACK_INDEX"));
 
         }catch (SQLException ex){
             throw new RuntimeException(ex);
@@ -215,6 +217,114 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setInt(1, obj.getTrack_id());
 
             preparedStatement.executeUpdate();
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public Podcast getByTrackId(int track_id) {
+        String selectQuery = """
+                SELECT tr.track_id,tr.artist_id, tr.name, tr.picture, tr.release_date,
+                        a.podcast_id, a.topic, a.description
+                FROM podcast a,track tr
+                WHERE tr.track_id = ? and a.track_id = tr.track_id
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setInt(1, track_id);
+            ResultSet res = preparedStatement.executeQuery();
+
+            if(res.next()){
+                return new Podcast(
+                        res.getInt(1),
+                        artistRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getDate(5),
+                        res.getInt(6),
+                        res.getString(7),
+                        res.getString(8),
+                        new ArrayList<>()
+                );
+            }
+            return null;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Podcast> getFewRandom(){
+        String selectQuery = """
+                SELECT t.track_id, t.artist_id, t.name,
+                        t.picture, t.release_date,
+                        p.podcast_id, p.topic, p.description
+                FROM podcast p, track t 
+                WHERE p.track_id = t.track_id
+                ORDER BY dbms_random.value
+                FETCH FIRST 10 ROWS ONLY
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            ResultSet res = preparedStatement.executeQuery();
+
+            ArrayList<Podcast> podcasts = new ArrayList<>();
+            while(res.next()){
+                Podcast podcast = new Podcast(
+                        res.getInt(1),
+                        artistRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getDate(5),
+                        res.getInt(6),
+                        res.getString(7),
+                        res.getString(8),
+                        new ArrayList<>()
+                );
+                podcasts.add(podcast);
+            }
+            return podcasts;
+        }catch (SQLException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public ArrayList<Podcast> getByTitle(String title){
+        String selectQuery = """
+                SELECT t.track_id, t.artist_id, t.name,
+                        t.picture, t.release_date,
+                        p.podcast_id, p.topic, p.description
+                FROM podcast p, track t
+                WHERE p.track_id = t.track_id
+                    AND lower(t.name) = ?
+                """;
+        try{
+            OraclePreparedStatement preparedStatement = (OraclePreparedStatement)
+                    dbConnection.getContext().prepareStatement(selectQuery);
+
+            preparedStatement.setString(1, title.toLowerCase());
+            ResultSet res = preparedStatement.executeQuery();
+
+
+            ArrayList<Podcast> podcasts = new ArrayList<>();
+            while(res.next()){
+                Podcast podcast = new Podcast(
+                        res.getInt(1),
+                        artistRepo.get(res.getInt(2)),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getDate(5),
+                        res.getInt(6),
+                        res.getString(7),
+                        res.getString(8),
+                        new ArrayList<>()
+                );
+                podcasts.add(podcast);
+            }
+            return podcasts;
         }catch (SQLException ex){
             throw new RuntimeException(ex);
         }

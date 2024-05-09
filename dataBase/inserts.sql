@@ -36,7 +36,6 @@ INSERT INTO LISTENER VALUES (listener_index.nextval,8,0);
 INSERT INTO LISTENER VALUES (listener_index.nextval,9,0);
 INSERT INTO LISTENER VALUES (listener_index.nextval,10,0);
 
-
 --------INSERT INTO ARTIST--------------
 INSERT INTO ARTIST VALUES (artist_index.nextval, 11, 'Legendary rock band with numerous hit albums', 500000, 1, 'Atlantic Records');
 INSERT INTO ARTIST VALUES (artist_index.nextval, 12, 'Soulful RandB singer with a powerful voice', 250000, 1, 'Sony Music Entertainment');
@@ -48,71 +47,6 @@ INSERT INTO ARTIST VALUES (artist_index.nextval, 17, 'Up-and-coming indie rock b
 INSERT INTO ARTIST VALUES (artist_index.nextval, 18, 'Iconic pop singer with a huge following worldwide', 1000000, 1, 'Universal Music Group');
 INSERT INTO ARTIST VALUES (artist_index.nextval, 19, 'Talented rapper known for his clever lyrics and storytelling', 300000, 1, 'Interscope Records');
 INSERT INTO ARTIST VALUES (artist_index.nextval, 20, 'Acclaimed classical violinist performing worldwide', 150000, 1, 'Deutsche Grammophon');
-
-
-------INSERT INTO LISTENER_FOLLOW_ARTIST-------
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(5, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(4, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(5, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(8, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 8);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(8, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(2, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 8);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(4, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(5, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(5, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(8, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(2, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(2, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 8);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(4, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 5);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(4, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(3, 8);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(5, 8);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(8, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(9, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 1);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(10, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 4);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(2, 9);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(1, 7);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(2, 6);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 2);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(6, 3);
-INSERT INTO LISTENER_FOLLOW_ARTIST VALUES(7, 8);
 
 -----INSERT INTO TRACK-----------------
 INSERT INTO TRACK VALUES (track_index.nextval,7, 'Midnight Sonata', 'midnight_sonata.jpg', TO_DATE('1978-05-21', 'YYYY-MM-DD'));
@@ -199,105 +133,76 @@ INSERT INTO EPISODE VALUES (episode_index.nextval, 10, 'Sports Roundup: Highligh
 
 -----INSERTS FOR SONG---------
 
-INSERT INTO SONG VALUES (song_index.nextval, 1, 'Moonlight Sonata', 337, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 1, 'Nocturne in E-Flat Major', 255, 950, 45000);
-INSERT INTO SONG VALUES (song_index.nextval, 1, 'Prelude in D-Flat Major', 230, 850, 40000);
-INSERT INTO SONG VALUES (song_index.nextval, 1, 'Adagio for Strings', 450, 1500, 60000);
-INSERT INTO SONG VALUES (song_index.nextval, 1, 'Rhapsody in Blue', 560, 1800, 70000);
+INSERT INTO SONG VALUES (song_index.nextval, 1, 'Moonlight Sonata', 337, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 1, 'Nocturne in E-Flat Major', 255, 45000);
+INSERT INTO SONG VALUES (song_index.nextval, 1, 'Prelude in D-Flat Major', 230, 40000);
+INSERT INTO SONG VALUES (song_index.nextval, 1, 'Adagio for Strings', 450, 60000);
+INSERT INTO SONG VALUES (song_index.nextval, 1, 'Rhapsody in Blue', 560, 70000);
 
-INSERT INTO SONG VALUES (song_index.nextval, 2, 'Electric Dreams', 282, 1300, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 2, 'Dreamscape', 315, 1250, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 2, 'Synthwave Symphony', 240, 1100, 48000);
-INSERT INTO SONG VALUES (song_index.nextval, 2, 'Neon Nights', 278, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 2, 'Digital Frontier', 295, 1280, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 2, 'Electric Dreams', 282, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 2, 'Dreamscape', 315, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 2, 'Synthwave Symphony', 240, 48000);
+INSERT INTO SONG VALUES (song_index.nextval, 2, 'Neon Nights', 278, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 2, 'Digital Frontier', 295, 53000);
 
-INSERT INTO SONG VALUES (song_index.nextval, 3, 'Eternal Flames', 324, 1350, 54000);
-INSERT INTO SONG VALUES (song_index.nextval, 3, 'Inferno Symphony', 378, 1420, 58000);
-INSERT INTO SONG VALUES (song_index.nextval, 3, 'Firestorm Rhapsody', 295, 1280, 53000);
-INSERT INTO SONG VALUES (song_index.nextval, 3, 'Phoenix Melody', 310, 1300, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 3, 'Flame Dance', 280, 1220, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 3, 'Eternal Flames', 324, 54000);
+INSERT INTO SONG VALUES (song_index.nextval, 3, 'Inferno Symphony', 378, 58000);
+INSERT INTO SONG VALUES (song_index.nextval, 3, 'Firestorm Rhapsody', 295, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 3, 'Phoenix Melody', 310, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 3, 'Flame Dance', 280, 51000);
 
-INSERT INTO SONG VALUES (song_index.nextval, 4, 'Crystal Rain', 320, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 4, 'Diamond Drops', 310, 1220, 51000);
-
-
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Lights', 315, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'City Skylines', 290, 1180, 49000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Midnight Drive', 280, 1150, 48000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Electric Avenue', 305, 1220, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Synthwave Serenade', 320, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Dreams', 330, 1280, 53000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Digital Dystopia', 290, 1160, 47000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'City of Neon', 300, 1210, 49000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Skyline', 310, 1230, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Future Funk', 280, 1140, 46000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Vaporwave Vibes', 315, 1260, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 5, 'Synthpop Sensation', 325, 1300, 52000);
-
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Starry Night', 280, 1150, 48000);
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Celestial Symphony', 310, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Galactic Serenade', 290, 1180, 49000);
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Nebula Waltz', 320, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Meteor Shower Melody', 300, 1210, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 6, 'Cosmic Lullaby', 330, 1280, 53000);
-
-INSERT INTO SONG VALUES (song_index.nextval, 7, 'Moonlit Sonata', 360, 1300, 54000);
-INSERT INTO SONG VALUES (song_index.nextval, 7, 'Nocturnal Ballad', 340, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 7, 'Midnight Melody', 370, 1350, 55000);
-INSERT INTO SONG VALUES (song_index.nextval, 7, 'Lunar Serenade', 320, 1200, 50000);
-
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'Echoes of Dawn', 360, 1300, 54000);
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'Morning Mist', 340, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'Sunrise Serenade', 330, 1220, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'Dawn Chorus', 350, 1280, 53000);
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'First Light', 310, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 8, 'Golden Dawn', 370, 1350, 55000);
+INSERT INTO SONG VALUES (song_index.nextval, 4, 'Crystal Rain', 320, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 4, 'Diamond Drops', 310, 51000);
 
 
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Whispering Winds', 340, 1280, 53000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Gentle Breeze', 320, 1220, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Soothing Zephyr', 330, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Murmuring Stream', 310, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Serenade of Silence', 350, 1300, 54000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Tranquil Twilight', 360, 1320, 55000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Echoes of Nature', 300, 1180, 49000);
-INSERT INTO SONG VALUES (song_index.nextval, 9, 'Calm Waters', 310, 1200, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Lights', 315, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'City Skylines', 290, 49000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Midnight Drive', 280, 48000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Electric Avenue', 305, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Synthwave Serenade', 320, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Dreams', 330, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Digital Dystopia', 290, 47000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'City of Neon', 300, 49000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Neon Skyline', 310, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Future Funk', 280, 46000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Vaporwave Vibes', 315, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 5, 'Synthpop Sensation', 325, 52000);
 
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Rainbow Melodies', 330, 1250, 52000);
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Colorful Harmony', 320, 1220, 51000);
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Vibrant Serenade', 340, 1280, 53000);
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Bright Symphony', 310, 1200, 50000);
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Radiant Rhapsody', 350, 1300, 54000);
-INSERT INTO SONG VALUES (song_index.nextval, 10, 'Prismatic Prelude', 320, 1220, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Starry Night', 280, 48000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Celestial Symphony', 310, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Galactic Serenade', 290, 49000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Nebula Waltz', 320, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Meteor Shower Melody', 300, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 6, 'Cosmic Lullaby', 330, 53000);
+
+INSERT INTO SONG VALUES (song_index.nextval, 7, 'Moonlit Sonata', 360, 54000);
+INSERT INTO SONG VALUES (song_index.nextval, 7, 'Nocturnal Ballad', 340, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 7, 'Midnight Melody', 370, 55000);
+INSERT INTO SONG VALUES (song_index.nextval, 7, 'Lunar Serenade', 320, 50000);
+
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'Echoes of Dawn', 360, 54000);
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'Morning Mist', 340, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'Sunrise Serenade', 330, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'Dawn Chorus', 350, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'First Light', 310, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 8, 'Golden Dawn', 370, 55000);
 
 
--------INSERTS FOR LISTENER_SAVES_ALBUM-------
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(4, 4);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(4, 10);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(7, 4);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(1, 2);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(2, 2);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(7, 10);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(3, 10);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(1, 4);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(4, 2);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(2, 3);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(5, 10);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(4, 5);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(2, 6);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(7, 2);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(1, 10);
-INSERT INTO LISTENER_SAVES_ALBUM VALUES(3, 2);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Whispering Winds', 340, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Gentle Breeze', 320, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Soothing Zephyr', 330, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Murmuring Stream', 310, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Serenade of Silence', 350, 54000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Tranquil Twilight', 360, 55000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Echoes of Nature', 300, 49000);
+INSERT INTO SONG VALUES (song_index.nextval, 9, 'Calm Waters', 310, 50000);
 
--------INSERTS FOR LISTENER_FOLLOW_PODCAST-------
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(5, 5);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(5, 7);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(8, 3);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(4, 5);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(5, 6);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(4, 8);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(2, 5);
-INSERT INTO LISTENER_FOLLOW_PODCAST VALUES(9, 4);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Rainbow Melodies', 330, 52000);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Colorful Harmony', 320, 51000);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Vibrant Serenade', 340, 53000);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Bright Symphony', 310, 50000);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Radiant Rhapsody', 350, 54000);
+INSERT INTO SONG VALUES (song_index.nextval, 10, 'Prismatic Prelude', 320, 51000);
 
 
 ------INSERTS FOR LISTENER_LIKES_SONG------------
@@ -350,17 +255,5 @@ INSERT INTO LISTENER_LIKES_SONG VALUES(1, 59);
 INSERT INTO LISTENER_LIKES_SONG VALUES(4, 28);
 INSERT INTO LISTENER_LIKES_SONG VALUES(7, 48);
 INSERT INTO LISTENER_LIKES_SONG VALUES(9, 15);
-
--------INSERT FOR ARTIST_FEAT_SONG------------
-INSERT INTO ARTIST_FEAT_SONG VALUES(9, 10);
-INSERT INTO ARTIST_FEAT_SONG VALUES(4, 45);
-INSERT INTO ARTIST_FEAT_SONG VALUES(1, 47);
-INSERT INTO ARTIST_FEAT_SONG VALUES(7, 36);
-INSERT INTO ARTIST_FEAT_SONG VALUES(7, 35);
-INSERT INTO ARTIST_FEAT_SONG VALUES(8, 35);
-INSERT INTO ARTIST_FEAT_SONG VALUES(6, 7);
-INSERT INTO ARTIST_FEAT_SONG VALUES(2, 3);
-INSERT INTO ARTIST_FEAT_SONG VALUES(9, 27);
-INSERT INTO ARTIST_FEAT_SONG VALUES(4, 27);
 
 

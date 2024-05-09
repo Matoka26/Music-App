@@ -28,10 +28,6 @@ create table LISTENER(
     time_played         number(9) DEFAULT 0
 );
 
-create table LISTENER_FOLLOW_ARTIST(
-    artist_id           number(6),
-    listener_id         number(6)
-);
 
 create table TRACK(
     track_id        number(6) PRIMARY KEY,
@@ -61,13 +57,7 @@ create table EPISODE(
     host            varchar2(30) NOT NULL,
     guest           varchar2(30),
     duration        number(6) NOT NULL,
-    likes           number(9) DEFAULT 0,
     plays           number(9) DEFAULT 0
-);
-
-create table LISTENER_FOLLOW_PODCAST(
-    listener_id     number(6),
-    podcast_id      number(6)
 );
 
 create table SONG(
@@ -75,21 +65,8 @@ create table SONG(
     album_id    number(6),
     title       varchar2(30) NOT NULL,
     duration    number(6) NOT NULL,
-    likes       number(9) DEFAULT 0,
     plays       number(9) DEFAULT 0
 );
-
-create table LISTENER_SAVES_ALBUM(
-    listener_id     number(6),
-    album_id        number(6)
-);
-
-
-create table ARTIST_FEAT_SONG(
-    artist_id       number(6),
-    song_id         number(9)
-);
-
 
 create table LISTENER_LIKES_SONG(
     listener_id     number(6),
@@ -106,12 +83,6 @@ alter table ARTIST
 alter table LISTENER
     add constraint fk_user_id_2 FOREIGN KEY(user_id)
                     REFERENCES APP_USER(user_id);
-                    
-alter table LISTENER_FOLLOW_ARTIST
-    add (constraint pk_follow PRIMARY KEY(artist_id, listener_id),
-         constraint fk_artist_id_fl FOREIGN KEY(artist_id) references ARTIST(artist_id),
-         constraint fk_listener_id_fl FOREIGN KEY(listener_id) references LISTENER(listener_id)
-         );
         
 alter table TRACK
     add constraint fk_artist_id_track FOREIGN KEY(artist_id)
@@ -119,40 +90,23 @@ alter table TRACK
         
 alter table PODCAST
     add constraint fk_track_id_podcast FOREIGN KEY(track_id)
-        references TRACK(track_id);
+        references TRACK(track_id) on delete cascade;
 
 alter table ALBUM
     add constraint fk_track_id_album FOREIGN KEY(track_id)
-        references TRACK(track_id);
+        references TRACK(track_id) on delete cascade;
 
 alter table EPISODE
     add constraint fk_podcast_id_episode FOREIGN KEY(podcast_id)
         references PODCAST(podcast_id) ON DELETE CASCADE;
-        
-alter table LISTENER_FOLLOW_PODCAST
-    add (constraint pk_list_fl_pod PRIMARY KEY(listener_id, podcast_id),
-         constraint fk_listener_id_fl_pc FOREIGN KEY(listener_id) references LISTENER(listener_id),
-         constraint fk_podcast_id_fl_pc FOREIGN KEY(podcast_id) references PODCAST(podcast_id)
-         );
-         
+
 alter table SONG
     add constraint fk_album_id_song FOREIGN KEY(album_id)
         references ALBUM(album_id) ON DELETE CASCADE;
-        
-alter table LISTENER_SAVES_ALBUM
-    add (constraint pk_lis_saves_alb PRIMARY KEY(listener_id, album_id),
-         constraint fk_listener_id_lis_saves_alb FOREIGN KEY(listener_id) references LISTENER(listener_id),
-         constraint fk_album_id_lis_saves_alb FOREIGN KEY(album_id) references ALBUM(album_id)
-         );
-         
-alter table ARTIST_FEAT_SONG
-    add (constraint pk_art_feat_song PRIMARY KEY(artist_id,song_id),
-         constraint fk_artist_id_art_feat_song FOREIGN KEY(artist_id) references ARTIST(artist_id),
-         constraint fk_song_id_art_feat_song FOREIGN KEY(song_id) references SONG(song_id)
-         );
-         
+
 alter table LISTENER_LIKES_SONG
-    add (constraint pk_lis_likes_song PRIMARY KEY(listener_id,song_id),
-         constraint fk_listener_id_lis_likes_song FOREIGN KEY(listener_id) references LISTENER(listener_id),
-         constraint fk_song_id_lis_likes_song FOREIGN KEY(song_id) references SONG(song_id)
+    add (constraint pk_lis_saves_song PRIMARY KEY(listener_id,song_id),
+         constraint fk_listener_id_lis_saves_song FOREIGN KEY(listener_id) references LISTENER(listener_id) on delete cascade,
+         constraint fk_song_id_lis_saves_song FOREIGN KEY(song_id) references SONG(song_id) on delete cascade
          );
+
