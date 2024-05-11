@@ -1,8 +1,6 @@
 package persistence.repositories;
 
-import models.Episode;
 import models.Song;
-import models.track.Album;
 import persistence.GenericRepository;
 import oracle.jdbc.OraclePreparedStatement;
 
@@ -38,7 +36,9 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(3, obj.getDuration());
 
             preparedStatement.executeUpdate();
+            audit.write(insertStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(insertStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -124,7 +124,9 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(4, obj.getSong_id());
 
             preparedStatement.executeUpdate();
+            audit.write(updateStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(updateStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -142,8 +144,9 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(1, obj.getSong_id());
 
             preparedStatement.executeUpdate();
-
+            audit.write(deleteStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(deleteStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -238,7 +241,7 @@ public class SongRepository implements GenericRepository<Song> {
         }
     }
 
-    public ArrayList<Song> getLikes(int listenerId){
+    public ArrayList<Song> getLikes(int listenerId) throws SQLException{
         String selectQuery = """
                 SELECT s.song_id, s.album_id, s.title, s.duration, s.plays
                 FROM listener_likes_song lks, song s
@@ -264,7 +267,7 @@ public class SongRepository implements GenericRepository<Song> {
             }
             return songs;
         }catch (SQLException ex){
-            throw new RuntimeException(ex);
+            throw new SQLException(ex);
         }
     }
 }

@@ -1,5 +1,6 @@
 package persistence;
 
+import service.Audit;
 import service.DBConnection;
 
 import java.sql.PreparedStatement;
@@ -9,9 +10,10 @@ import java.util.ArrayList;
 
 public interface GenericRepository<T> {
     DBConnection dbConnection = DBConnection.getInstance();
+    Audit audit = Audit.getInstance();
 
     public void add(T entity);
-    public T get(int id);
+    public T get(int id) throws SQLException;
     public ArrayList<T> getAll();
     public void update(T entity);
     public void delete(T entity);

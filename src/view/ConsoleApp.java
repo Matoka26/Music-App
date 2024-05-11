@@ -1,10 +1,5 @@
 package view;
 
-import persistence.repositories.ArtistRepository;
-import persistence.repositories.ListenerRepository;
-
-import javax.security.auth.login.LoginContext;
-import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Scanner;
 

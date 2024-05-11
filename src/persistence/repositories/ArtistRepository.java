@@ -43,9 +43,9 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.executeUpdate();
 
             artist.setUser_id(retrievLastId("USER_INDEX"));
-
+            audit.write(insertUser, artist.getUser_id(), "Done successfully");
         } catch (SQLException ex) {
-
+            audit.write(insertUser, artist.getUser_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
         String insertArt = """
@@ -64,13 +64,15 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.executeUpdate();
 
             artist.setArtist_id(retrievLastId("ARTIST_INDEX"));
+            audit.write(insertArt, artist.getArtist_id(), "Done successfully");
         } catch (SQLException ex) {
+            audit.write(insertArt, artist.getArtist_id(), "Error :" + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public Artist get(int id) {
+    public Artist get(int id) throws SQLException {
         String selectQuery = """
                                 
                 SELECT us.user_id, us.first_name,us.last_name, us.email,
@@ -112,7 +114,7 @@ public class ArtistRepository implements GenericRepository<Artist> {
                 throw new RuntimeException();
             }
         } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+            throw new SQLException(ex);
         }
     }
 
@@ -184,8 +186,9 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.setInt(5, obj.getArtist_id());
 
             preparedStatement.executeUpdate();
-
+            audit.write(updateStatementArt, obj.getArtist_id(), "Done successfully");
         } catch (SQLException ex) {
+            audit.write(updateStatementArt, obj.getArtist_id(), "Error :" + ex.getMessage());
             throw new RuntimeException(ex);
         }
         String updateStatementUser = """
@@ -221,7 +224,9 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.setInt(10, obj.getUser_id());
 
             preparedStatement.executeUpdate();
+            audit.write(updateStatementUser, obj.getUser_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(updateStatementUser, obj.getUser_id(), "Error :" + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -239,7 +244,9 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.setInt(1, obj.getArtist_id());
 
             preparedStatement.executeUpdate();
+            audit.write(deleteStatementArt, obj.getArtist_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(deleteStatementArt, obj.getArtist_id(), "Error :" + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -254,7 +261,9 @@ public class ArtistRepository implements GenericRepository<Artist> {
             preparedStatement.setInt(1, obj.getUser_id());
 
             preparedStatement.executeUpdate();
+            audit.write(deleteStatementUsr, obj.getUser_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(deleteStatementUsr, obj.getUser_id(), "Error :" + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }

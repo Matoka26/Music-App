@@ -9,6 +9,7 @@ import models.track.Podcast;
 import models.track.Track;
 import persistence.repositories.*;
 
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -45,8 +46,13 @@ public class ListenerConsoleApp {
         return instance;
     }
 
-    public void createListener(){
-        listenerRepo.add(Listener.createListener());
+    public void createListener() {
+        try {
+            listenerRepo.add(Listener.createListener());
+        }catch (Exception e) {
+            System.out.println("Something went wrong, please user other values");
+            createListener();
+        }
     }
 
     public Map.Entry<Integer,Integer> validateLogin(String username, String password){
@@ -188,11 +194,21 @@ public class ListenerConsoleApp {
 
     }
     private void showLikes(){
-        ArrayList<Song> likedSongs = songRepo.getLikes(listener_id);
-        for(Song song : likedSongs){
-            System.out.println(song);
+        try {
+            ArrayList<Song> likedSongs = songRepo.getLikes(listener_id);
+            if(likedSongs.isEmpty()){
+                System.out.println("You have not liked any song yet");
+            }
+            for(Song song : likedSongs){
+                System.out.println(song);
+            }
+        }catch (SQLException e){
+            System.out.println("Sorry, there have been an internal error, please try that later\n");
         }
-        startMenu();
+        finally {
+           startMenu();
+        }
+
     }
 
     private void listenSong(Song song){
@@ -219,10 +235,7 @@ public class ListenerConsoleApp {
         int option = scanner.nextInt();
         scanner.nextLine();
         switch (option) {
-            case 1 -> {
-                likeSong(randSongs.get(song_index));
-                startMenu();
-            }
+            case 1 -> likeSong(randSongs.get(song_index));
             case 2 -> chooseSong(songRepo.getAllByAlbumId(randSongs.get(song_index).getAlbum().getAlbum_id()));
             case 3 -> {
                 songQueue.add(randSongs.get(song_index));

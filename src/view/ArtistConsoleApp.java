@@ -39,7 +39,12 @@ public class ArtistConsoleApp {
 
     public void setArtist_id(int artist_id) {
         ArtistConsoleApp.artist_id = artist_id;
-        this.artist = artistRepo.get(artist_id);
+        try {
+            this.artist = artistRepo.get(artist_id);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static ArtistConsoleApp getInstance() {
@@ -49,10 +54,15 @@ public class ArtistConsoleApp {
         return instance;
     }
 
-    public void createArtist(){
-        artistRepo.add(Artist.createArtist());
+    public void createArtist() {
+        try {
+            artistRepo.add(Artist.createArtist());
+        }
+        catch (Exception e) {
+            System.out.println("Something went wrong, please try other values");
+            createArtist();
+        }
     }
-
 
     public Map.Entry<Integer,Integer> validateLogin(String username, String password){
         return artistRepo.validateLogin(username, password);

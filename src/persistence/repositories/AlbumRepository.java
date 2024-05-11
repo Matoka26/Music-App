@@ -39,8 +39,9 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.executeUpdate();
 
             obj.setTrack_id(retrievLastId("TRACK_INDEX"));
-
+            audit.write(insertTrack, obj.getTrack_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(insertTrack, obj.getTrack_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
         String insertPod = """
@@ -54,14 +55,15 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setString(2, obj.getGenre());
 
             preparedStatement.executeUpdate();
-
+            audit.write(insertTrack, obj.getAlbum_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(insertTrack, obj.getAlbum_id() , "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public Album get(int id) {
+    public Album get(int id) throws SQLException {
         String selectQuery = """
                 SELECT t.track_id, t.artist_id, t.name,
                         t.picture, t.release_date,
@@ -76,7 +78,6 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setInt(1, id);
 
             ResultSet res = preparedStatement.executeQuery();
-
             if (res.next()){
                 return new Album(
                         res.getInt(1),
@@ -89,12 +90,9 @@ public class AlbumRepository implements GenericRepository<Album> {
                         new ArrayList<>()
                 );
             }
-            else{
-                throw new RuntimeException();
-            }
-
+            return null;
         }catch (SQLException ex){
-            throw new RuntimeException(ex);
+            throw new SQLException(ex);
         }
     }
 
@@ -150,7 +148,9 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setInt(2, obj.getAlbum_id());
 
             preparedStatement.executeUpdate();
+            audit.write(updateStatementPod, obj.getAlbum_id(), "Done successfully!");
         }catch (SQLException ex){
+            audit.write(updateStatementPod, obj.getAlbum_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -173,8 +173,9 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setInt(4, obj.getTrack_id());
 
             preparedStatement.executeUpdate();
-
+            audit.write(updateStatementTrk, obj.getTrack_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(updateStatementTrk, obj.getTrack_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -193,7 +194,9 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setInt(1, obj.getAlbum_id());
 
             preparedStatement.executeUpdate();
+            audit.write(deleteStatement, obj.getAlbum_id(), "Done successfully");
         }catch (SQLException ex){
+            audit.write(deleteStatement, obj.getAlbum_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -208,7 +211,9 @@ public class AlbumRepository implements GenericRepository<Album> {
             preparedStatement.setInt(1, obj.getTrack_id());
 
             preparedStatement.executeUpdate();
+            audit.write(deleteStatementTrk, obj.getTrack_id(), "Done successfully!");
         }catch (SQLException ex){
+            audit.write(deleteStatementTrk, obj.getTrack_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }

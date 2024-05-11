@@ -6,18 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d6e721f6-ccad-4c13-baf2-bed4a5e2b670" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music-App.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Music-App.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataBase/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/dataBase/create_tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataBase/drop_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/dataBase/drop_tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataBase/inserts.sql" beforeDir="false" afterPath="$PROJECT_DIR$/dataBase/inserts.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Episode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Episode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/app_user/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/app_user/Listener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/associatives/Artist_Feat_Song.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/track/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/track/Album.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/track/Podcast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/track/Podcast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/track/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/track/Track.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/GenericRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/persistence/repositories/AlbumRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/AlbumRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/persistence/repositories/ArtistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/ArtistRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/persistence/repositories/EpisodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/EpisodeRepository.java" afterDir="false" />
@@ -36,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -137,6 +126,8 @@
       <workItem from="1715111622890" duration="1118000" />
       <workItem from="1715112760651" duration="5840000" />
       <workItem from="1715244276336" duration="25331000" />
+      <workItem from="1715460813237" duration="595000" />
+      <workItem from="1715461421046" duration="3960000" />
     </task>
     <servers />
   </component>
