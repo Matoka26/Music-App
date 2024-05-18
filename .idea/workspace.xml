@@ -6,8 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="d6e721f6-ccad-4c13-baf2-bed4a5e2b670" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Music-App.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/Music-App.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/audit.csv" beforeDir="false" afterPath="$PROJECT_DIR$/audit.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/associatives/Listener_Follow_Artist.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/associatives/Listener_Follow_Podcast.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/associatives/Listener_Saves_Album.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/GenericRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/GenericRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/AlbumRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/AlbumRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/ArtistRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/ArtistRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/EpisodeRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/EpisodeRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/ListenerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/ListenerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/PodcastRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/PodcastRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/persistence/repositories/SongRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persistence/repositories/SongRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/Audit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/Audit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ArtistConsoleApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ArtistConsoleApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ConsoleApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ConsoleApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ListenerConsoleApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ListenerConsoleApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +133,14 @@
       <workItem from="1715244276336" duration="25331000" />
       <workItem from="1715460813237" duration="595000" />
       <workItem from="1715461421046" duration="4027000" />
-      <workItem from="1715536370851" duration="1352000" />
+      <workItem from="1715536370851" duration="1686000" />
+      <workItem from="1715854430541" duration="26000" />
+      <workItem from="1715867216747" duration="45000" />
+      <workItem from="1715868588954" duration="1122000" />
+      <workItem from="1715870504371" duration="941000" />
+      <workItem from="1715930366454" duration="435000" />
+      <workItem from="1716017762448" duration="1602000" />
+      <workItem from="1716064024515" duration="1222000" />
     </task>
     <servers />
   </component>

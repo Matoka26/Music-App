@@ -13,15 +13,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ArtistConsoleApp {
+public class ArtistConsoleApp extends Console {
     private static ArtistConsoleApp instance = null;
-    private ArtistRepository artistRepo;
-    private ListenerRepository listenerRepo;
-    private PodcastRepository podcastRepo;
-    private AlbumRepository albumRepo;
-    private SongRepository songRepo;
-    private EpisodeRepository episodeRepo;
-    private TrackRepository trackRepo;
 
     private static Artist artist;
     private static int artist_id;
@@ -45,6 +38,7 @@ public class ArtistConsoleApp {
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        audit.write(artist_id, "Logged In");
     }
 
     public static ArtistConsoleApp getInstance() {
@@ -71,12 +65,15 @@ public class ArtistConsoleApp {
     private void updateArtist(){
         this.artist.updateArtist();
         artistRepo.update(artist);
+        audit.write(artist_id, "Updated profile");
+        artistProfileMenu();
     }
 
     private void deleteArtist(){
         Scanner sc = new Scanner(System.in);
         this.artist.deleteArtist();
         artistRepo.update(artist);
+        audit.write(artist_id, "Deleted profile");
 
         System.out.println("Your account has been deleted successfully");
         System.out.println("The app will now close, please press enter");
@@ -85,17 +82,20 @@ public class ArtistConsoleApp {
 
     private void deleteTrack(int trackId){
         trackRepo.delete(trackId);
+        audit.write(artist_id, "Deleted track " + trackId);
         System.out.println("The track has been deleted successfully");
         artistTrackMenu();
     }
 
     private void addSong(Album album){
         songRepo.add(Song.createSong(album));
+        audit.write(artist_id, "Added song to album " + album.getAlbum_id());
         System.out.println("The song has been added successfully");
         artistTrackMenu();
     }
     private void addEpisode(Podcast podcast){
         episodeRepo.add(Episode.createEpidose(podcast));
+        audit.write(artist_id, "Added episode to podcast " + podcast.getPodcast_id());
         System.out.println("The episode has been added successfully");
         artistTrackMenu();
     }
@@ -119,11 +119,13 @@ public class ArtistConsoleApp {
 
     private void addAlbum(){
         albumRepo.add(Album.createAlbum(this.artist));
+        audit.write(artist_id, "Added album");
         System.out.println("Album created successfully");
         startMenu();
     }
     private void addPodcast(){
         podcastRepo.add(Podcast.createPodcast(this.artist));
+        audit.write(artist_id, "Added podcast");
         System.out.println("Podcast created successfully");
         startMenu();
     }
@@ -197,10 +199,7 @@ public class ArtistConsoleApp {
         option = scanner.nextInt();
         scanner.nextLine();
         switch (option){
-            case 1 -> {
-                updateArtist();
-                artistProfileMenu();
-            }
+            case 1 -> updateArtist();
             case 2 -> deleteArtist();
             case 3 -> startMenu();
             case 4 -> {}
@@ -218,7 +217,7 @@ public class ArtistConsoleApp {
         System.out.println("What action would you like to perform\n" +
                             "1.See in more detail\n" +
                             "2.Delete\n" +
-                            "3.Nevermind\n" +
+                            "3.Never mind\n" +
                             "4.End\n");
         option = sc.nextInt();
         sc.nextLine();
@@ -252,7 +251,9 @@ public class ArtistConsoleApp {
         }
     }
 
+    @Override
     public void startMenu(){
+        audit.write(artist_id, "Logged in");
         Scanner scanner = new Scanner(System.in);
         int option;
 

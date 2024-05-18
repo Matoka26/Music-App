@@ -36,9 +36,7 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(3, obj.getDuration());
 
             preparedStatement.executeUpdate();
-            audit.write(insertStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -124,9 +122,7 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(4, obj.getSong_id());
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(updateStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -144,9 +140,7 @@ public class SongRepository implements GenericRepository<Song> {
             preparedStatement.setInt(1, obj.getSong_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatement, obj.getSong_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatement, obj.getSong_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }

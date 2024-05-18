@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public interface GenericRepository<T> {
     DBConnection dbConnection = DBConnection.getInstance();
-    Audit audit = Audit.getInstance();
 
     public void add(T entity);
     public T get(int id) throws SQLException;

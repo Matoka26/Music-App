@@ -39,9 +39,7 @@ public class EpisodeRepository implements GenericRepository<Episode> {
             preparedStatement.setInt(5, obj.getDuration());
 
             preparedStatement.executeUpdate();
-            audit.write(insertStatement, obj.getEpisode_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertStatement, obj.getEpisode_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -138,9 +136,7 @@ public class EpisodeRepository implements GenericRepository<Episode> {
             preparedStatement.setInt(6, obj.getEpisode_id());
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatement, obj.getEpisode_id(), "Done successfully");
         } catch (SQLException ex) {
-            audit.write(updateStatement, obj.getEpisode_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -158,9 +154,7 @@ public class EpisodeRepository implements GenericRepository<Episode> {
             preparedStatement.setInt(1, obj.getEpisode_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatement, obj.getEpisode_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatement, obj.getEpisode_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }

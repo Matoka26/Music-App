@@ -13,15 +13,8 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class ListenerConsoleApp {
+public class ListenerConsoleApp extends Console {
     private static ListenerConsoleApp instance = null;
-    private ArtistRepository artistRepo;
-    private ListenerRepository listenerRepo;
-    private PodcastRepository podcastRepo;
-    private AlbumRepository albumRepo;
-    private SongRepository songRepo;
-    private EpisodeRepository episodeRepo;
-    private TrackRepository trackRepo;
 
     private static Listener listener;
     private static int listener_id;
@@ -62,6 +55,7 @@ public class ListenerConsoleApp {
     public void setListener_id(int artist_id) {
         ListenerConsoleApp.listener_id = artist_id;
         this.listener = listenerRepo.get(artist_id);
+        audit.write(listener_id, "Logged In");
     }
 
     private void displayDots(){
@@ -97,12 +91,14 @@ public class ListenerConsoleApp {
     private void likeSong(Song song){
         try {
             listenerRepo.likeSong(this.listener.getListener_id(), song.getSong_id());
+            audit.write(listener_id, "Liked song " + song.getSong_id());
         }catch (Exception e){
             System.out.println("Oops you've already liked this one\n");
             System.out.println("Press yes if you want to unlike it: ");
             Scanner scanner = new Scanner(System.in);
             String choice = scanner.nextLine();
             if(choice.equalsIgnoreCase("yes")){
+                audit.write(listener_id, "Unliked song " + song.getSong_id());
                 listenerRepo.unlikeSong(this.listener.getListener_id(), song.getSong_id());
             }
         }
@@ -216,6 +212,7 @@ public class ListenerConsoleApp {
         displayDots();
 
         addDuration(song);
+        audit.write(listener_id, "Listened to " + song.getSong_id());
     }
 
     private void chooseSong(ArrayList<Song> randSongs){
@@ -282,6 +279,7 @@ public class ListenerConsoleApp {
             System.out.println("Now playing " + episodes.get(episodeIndex).getTitle());
             displayDots();
             addDuration(episodes.get(episodeIndex));
+            audit.write(listener_id, "Watched episode " + episodes.get(episodeIndex).getEpisode_id());
             System.out.println("The episode " + episodes.get(episodeIndex).getTitle() + " has been played\n" +
                                 "1.Next episode\n" +
                                 "2.End\n" +
@@ -467,6 +465,7 @@ public class ListenerConsoleApp {
         }
     }
 
+    @Override
     public void startMenu(){
         Scanner scanner = new Scanner(System.in);
         int option;

@@ -41,9 +41,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.executeUpdate();
 
             podcast.setTrack_id(retrievLastId("TRACK_INDEX"));
-            audit.write(insertTrack, podcast.getTrack_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertTrack, podcast.getTrack_id(), "Error while adding track");
             throw new RuntimeException(ex);
         }
         String insertPod = """
@@ -58,9 +56,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setString(3, podcast.getDescription());
 
             preparedStatement.executeUpdate();
-            audit.write(insertPod, podcast.getPodcast_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertPod, podcast.getPodcast_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -161,9 +157,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setInt(3, obj.getPodcast_id());
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatementPod, obj.getPodcast_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(updateStatementPod, obj.getPodcast_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -186,9 +180,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setInt(4, obj.getTrack_id());
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatementTrk, obj.getTrack_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(updateStatementTrk, obj.getTrack_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -207,9 +199,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setInt(1, obj.getPodcast_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatement, obj.getPodcast_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatement, obj.getPodcast_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -224,9 +214,7 @@ public class PodcastRepository implements GenericRepository<Podcast> {
             preparedStatement.setInt(1, obj.getTrack_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatementTrk, obj.getTrack_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatementTrk, obj.getTrack_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }

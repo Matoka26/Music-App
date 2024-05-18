@@ -3,7 +3,7 @@ package view;
 import java.util.Map;
 import java.util.Scanner;
 
-public class ConsoleApp {
+public class ConsoleApp{
     private static ConsoleApp instance = null;
     private final ArtistConsoleApp artistApp;
     private final ListenerConsoleApp listenerApp;

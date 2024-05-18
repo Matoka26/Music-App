@@ -42,9 +42,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.executeUpdate();
 
             listener.setUser_id(retrievLastId("USER_INDEX"));
-            audit.write(insertUser, listener.getUser_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertUser, listener.getUser_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
         String insertArt = """
@@ -59,9 +57,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.executeUpdate();
 
             listener.setListener(retrievLastId("LISTENER_INDEX"));
-            audit.write(insertUser, listener.getListener_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertArt, listener.getListener_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -185,9 +181,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.setInt(10, obj.getUser_id());
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatementUser, obj.getUser_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(updateStatementUser, obj.getUser_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -207,9 +201,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
 
 
             preparedStatement.executeUpdate();
-            audit.write(updateStatementLis, obj.getListener_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(updateStatementLis, obj.getListener_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -227,9 +219,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.setInt(1, obj.getListener_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatementLis, obj.getListener_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatementLis, obj.getListener_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
 
@@ -244,9 +234,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.setInt(1, obj.getUser_id());
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatementUsr, obj.getUser_id(), "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatementUsr, obj.getUser_id(), "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -295,9 +283,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
 
             preparedStatement.executeUpdate();
 
-            audit.write(insertStatement, listener_id, "Done successfully");
         }catch (SQLException ex){
-            audit.write(insertStatement, listener_id, "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
@@ -315,9 +301,7 @@ public class ListenerRepository implements GenericRepository<Listener> {
             preparedStatement.setInt(2, song_id);
 
             preparedStatement.executeUpdate();
-            audit.write(deleteStatement, listener_id, "Done successfully");
         }catch (SQLException ex){
-            audit.write(deleteStatement, listener_id, "Error: " + ex.getMessage());
             throw new RuntimeException(ex);
         }
     }
